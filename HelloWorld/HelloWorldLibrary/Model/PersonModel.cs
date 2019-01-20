@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HelloWorldLibrary.Model
 {
-    class PersonModel
+    public class PersonModel
     {
         public string Name { get; set; }
     }
