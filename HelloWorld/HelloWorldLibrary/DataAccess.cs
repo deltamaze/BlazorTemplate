@@ -6,7 +6,7 @@ using HelloWorldLibrary.Model;
 
 namespace HelloWorldLibrary
 {
-    class DataAccess
+    public class DataAccess
     {
         private static string personTextFIle = "PersonText.txt";
 
