@@ -25,7 +25,7 @@ namespace HelloWorldLibrary.Test
         [Theory]
         [InlineData("Tim","Name")]
         [InlineData("", "Name")]
-        public void AddPersonToPeopleList_ShouldFail(string name, string param)
+        public void AddPersonToPeopleList_ShouldFail(string name, string param) //test commit from new device
         {
             PersonModel newPerson = new PersonModel { Name = name, };
             List<PersonModel> people = new List<PersonModel>();
