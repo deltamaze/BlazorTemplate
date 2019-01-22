@@ -25,6 +25,10 @@ namespace HelloWorldLibrary
 
         public static void AddPersonToPeopleList(List<PersonModel> people, PersonModel person)
         {
+            if (String.IsNullOrWhiteSpace(person.Name))
+            {
+                throw new ArgumentException("You passed an invalid parameter", "Name");
+            }
             people.Add(person);
         }
 
