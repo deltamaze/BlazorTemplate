@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using HelloWorldLibrary;
-using HelloWorldLibrary.Model;
+using HelloWorldLibrary.Models;
 using Xunit;
 
 namespace HelloWorldLibrary.Test
