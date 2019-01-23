@@ -23,7 +23,6 @@ namespace HelloWorldLibrary.Test
         }
 
         [Theory]
-        [InlineData("Tim","Name")]
         [InlineData("", "Name")]
         public void AddPersonToPeopleList_ShouldFail(string name, string param) //test commit from new device
         {
