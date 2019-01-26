@@ -4,7 +4,7 @@ namespace HelloWorldLibrary.Utilities
 {
     public interface ISqliteDataAccess
     {
-        List<T> SaveData<T>(string sql);
+        List<T> LoadData<T>(string sql);
         void SaveData<T>(T person, string sql);
         void UpdateData<T>(T person, string sql);
     }

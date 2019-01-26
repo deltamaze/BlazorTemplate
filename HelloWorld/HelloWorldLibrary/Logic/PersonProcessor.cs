@@ -55,8 +55,8 @@ namespace HelloWorldLibrary.Logic
 
         public List<PersonModel> LoadPeople()
         {
-            string sql = "select * from Person";
-            var output = _database.SaveData<PersonModel>(sql);
+            string sql = "select * from Persons";
+            var output = _database.LoadData<PersonModel>(sql);
             // I commented it out since it was meant to show how to fail the test
             //foreach (var item in output)
             //{

@@ -5,6 +5,9 @@ using Xunit;
 using HelloWorldLibrary;
 using HelloWorldLibrary.Models;
 using HelloWorldLibrary.Logic;
+using HelloWorldLibrary.Utilities;
+using Moq;
+using Autofac.Extras.Moq;
 
 
 namespace HelloWorldLibrary.Test.Logic
@@ -73,6 +76,61 @@ namespace HelloWorldLibrary.Test.Logic
             }
 
         }
+
+        [Fact]
+        public void LoadPeople_ValidCall()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<ISqliteDataAccess>()
+                    .Setup(x => x.LoadData<PersonModel>("select * from Persons"))
+                    .Returns(GetSamplePeople());
+                //mock.Provide<string>("test"); was testing if the constuctor had an additional parameter
+                var cls = mock.Create<PersonProcessor>();
+
+                var expected = GetSamplePeople();
+                var actual = cls.LoadPeople();
+
+                Assert.True(actual != null);
+                Assert.Equal(expected.Count, actual.Count);
+                for (int i = 0; i < expected.Count; i++)
+                {
+                    Assert.Equal(expected[i].FirstName, actual[i].FirstName);
+                    Assert.Equal(expected[i].LastName, actual[i].LastName);
+                }
+
+            }
+        }
+
+        private List<PersonModel> GetSamplePeople()
+        {
+            List<PersonModel> output = new List<PersonModel>
+            {
+                new PersonModel
+                {
+                    FirstName = "Tim",
+                    LastName = "Corey"
+                },
+                new PersonModel
+                {
+                    FirstName = "Charity",
+                    LastName = "Corey"
+                },
+                new PersonModel
+                {
+                    FirstName = "Jon",
+                    LastName = "Corey"
+                },
+                new PersonModel
+                {
+                    FirstName = "Will",
+                    LastName = "Corey"
+                }
+            };
+            return output;
+
+        }
+
         //[Fact]
         //public void LoadPeople_ValidCall()
         //{
