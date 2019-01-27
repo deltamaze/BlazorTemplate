@@ -131,6 +131,31 @@ namespace HelloWorldLibrary.Test.Logic
 
         }
 
+        [Fact]
+        public void SavePeople_ValidCall()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<ISqliteDataAccess>()
+                    .Setup(x => x.LoadData<PersonModel>("select * from Persons"))
+                    .Returns(GetSamplePeople());
+                //mock.Provide<string>("test"); was testing if the constuctor had an additional parameter
+                var cls = mock.Create<PersonProcessor>();
+
+                var expected = GetSamplePeople();
+                var actual = cls.LoadPeople();
+
+                Assert.True(actual != null);
+                Assert.Equal(expected.Count, actual.Count);
+                for (int i = 0; i < expected.Count; i++)
+                {
+                    Assert.Equal(expected[i].FirstName, actual[i].FirstName);
+                    Assert.Equal(expected[i].LastName, actual[i].LastName);
+                }
+
+            }
+        }
+
         //[Fact]
         //public void LoadPeople_ValidCall()
         //{
