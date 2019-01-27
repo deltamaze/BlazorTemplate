@@ -72,20 +72,6 @@ namespace HelloWorldLibrary.Logic
         {
             string sql = "insert into Person (FirstName, LastName, HeightInInches) " +
               "values (@FirstName, @LastName, @HeightInInches)";
-            // Instead of the following statement, keep the version above, and add the statement 
-            // right after the line below...
-            //string sql = "insert into Person (FirstName, LastName, HeightInInches) " +
-            // "values ('Shahin', 'Ansari', 80)";
-            sql = sql.Replace("@FirstName", $"'{person.FirstName}'");
-            sql = sql.Replace("@LastName", $"'{person.LastName}'");
-            //while the test fails with the following line becasue HeightInInches is in ''s
-            //sql = sql.Replace("@HeightInInches", $"'{person.HeightInInches}'");
-            //it tests fine with the following line
-            sql = sql.Replace("@HeightInInches", $"{person.HeightInInches}");
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    _database.SaveData(person, sql);
-            //}
             _database.SaveData(person, sql);
 
 

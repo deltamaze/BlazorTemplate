@@ -136,22 +136,18 @@ namespace HelloWorldLibrary.Test.Logic
         {
             using (var mock = AutoMock.GetLoose())
             {
+                var testPerson = GetSamplePeople()[0];
+                string testSql = "insert into Person (FirstName, LastName, HeightInInches) " +
+              "values (@FirstName, @LastName, @HeightInInches)";
                 mock.Mock<ISqliteDataAccess>()
-                    .Setup(x => x.LoadData<PersonModel>("select * from Persons"))
-                    .Returns(GetSamplePeople());
-                //mock.Provide<string>("test"); was testing if the constuctor had an additional parameter
+                    .Setup(x => x.SaveData(testPerson, testSql));
+
                 var cls = mock.Create<PersonProcessor>();
+                
+                cls.SavePerson(testPerson);
 
-                var expected = GetSamplePeople();
-                var actual = cls.LoadPeople();
-
-                Assert.True(actual != null);
-                Assert.Equal(expected.Count, actual.Count);
-                for (int i = 0; i < expected.Count; i++)
-                {
-                    Assert.Equal(expected[i].FirstName, actual[i].FirstName);
-                    Assert.Equal(expected[i].LastName, actual[i].LastName);
-                }
+                mock.Mock<ISqliteDataAccess>()
+                    .Verify(x => x.SaveData(testPerson, testSql), Times.Exactly(1));
 
             }
         }
