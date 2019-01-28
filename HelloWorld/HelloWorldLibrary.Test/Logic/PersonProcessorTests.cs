@@ -152,6 +152,27 @@ namespace HelloWorldLibrary.Test.Logic
             }
         }
 
+        [Fact]
+        public void UpdatePeople_ValidCall()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                PersonModel testPerson = GetSamplePeople()[0];
+                string testSql = "update Person set FirstName = @FirstName, LastName = @LastName" +
+                ", HeightInInches = @HeightInInches where Id = @Id";
+                //mock ISqliteDataAccess 
+                mock.Mock<ISqliteDataAccess>()
+                    .Setup(x => x.UpdateData<PersonModel>(testPerson, testSql));
+
+                var cls = mock.Create<PersonProcessor>();
+                cls.UpdatePerson(testPerson);
+
+                mock.Mock<ISqliteDataAccess>()
+                    .Verify(x => x.UpdateData<PersonModel>(testPerson, testSql), Times.Exactly(1));
+
+            }
+        }
+
         //[Fact]
         //public void LoadPeople_ValidCall()
         //{
